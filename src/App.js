@@ -44,7 +44,7 @@ class Pokedex extends React.Component{
   <div>
     
     {this.state.listaPokemones.map(
-    iteracion => {return <Pokemon obj = ""/>}
+    iteracion => {return <Pokemon obj = {iteracion}/>}
   )}</div>);
   
   }
@@ -53,16 +53,10 @@ class Pokedex extends React.Component{
 
 class Pokemon extends React.Component{
 
-  componentDidMount(){
-
-    console.log("assa");
-
-  }
-
   render(){
 
       return(
-      <div className = "pokemon"></div>
+        <div key={this.props.obj.name} className = "pokemon">{this.props.obj.name}</div>
       );
   }
 }

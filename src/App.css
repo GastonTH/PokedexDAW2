@@ -18,6 +18,17 @@
   font-size: large;
 }
 
+#Pokedex{
+  border: 1px solid salmon;
+  display: grid;
+  grid-template-columns: repeat(3 ,1fr);
+  grid-gap: 1px;
+}
+
+.pokemon{
+  border: 1px solid black;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

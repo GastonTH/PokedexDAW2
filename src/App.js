@@ -22,7 +22,9 @@ class Pokedex extends React.Component{
 
   constructor (props){ //props es el paso de parametros
     super(props);
-    this.state = {};
+    this.state = {
+      listaPokemones : [{}],
+    };
   }
 
   //llamada a la api de pokemon
@@ -31,14 +33,38 @@ class Pokedex extends React.Component{
   
   fetch("https://pokeapi.co/api/v2/pokemon?limit=100000")
   .then(res => {return res.json()})
-  .then(jsonPokemones => {console.log(this.setState = jsonPokemones.results)})}
+  .then(jsonPokemones => {this.setState({listaPokemones : jsonPokemones.results});
+  })
+}
 
   render() {
+    
     return (
   
-    <div>{"aaa"}</div>);
+  <div>
+    
+    {this.state.listaPokemones.map(
+    iteracion => {return <Pokemon obj = ""/>}
+  )}</div>);
+  
   }
 
+}
+
+class Pokemon extends React.Component{
+
+  componentDidMount(){
+
+    console.log("assa");
+
+  }
+
+  render(){
+
+      return(
+      <div className = "pokemon"></div>
+      );
+  }
 }
 
 export default App;

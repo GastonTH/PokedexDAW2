@@ -18,46 +18,59 @@ class App extends Component {
   }
 }
 
-class Pokedex extends React.Component{
+class Pokedex extends React.Component {
 
-  constructor (props){ //props es el paso de parametros
+  constructor(props) { //props es el paso de parametros
     super(props);
     this.state = {
-      listaPokemones : [{}],
+      listaPokemones: [{}],
     };
   }
 
   //llamada a la api de pokemon
 
   componentDidMount() {
-  
-  fetch("https://pokeapi.co/api/v2/pokemon?limit=100000")
-  .then(res => {return res.json()})
-  .then(jsonPokemones => {this.setState({listaPokemones : jsonPokemones.results});
-  })
-}
+
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=100000")
+      .then(res => { return res.json() })
+      .then(jsonPokemones => {
+        this.setState({ listaPokemones: jsonPokemones.results });
+      })
+  }
 
   render() {
-    
+
     return (
-  
-  <div>
-    
-    {this.state.listaPokemones.map(
-    iteracion => {return <Pokemon obj = {iteracion}/>}
-  )}</div>);
-  
+
+      <div id= "rejilla">
+
+        {this.state.listaPokemones.map(
+          iteracion => { return <Pokemon obj={iteracion} /> }
+        )}</div>);
+
   }
 
 }
 
-class Pokemon extends React.Component{
+class Pokemon extends React.Component {
 
-  render(){
+  componentDidMount(){
 
-      return(
-        <div key={this.props.obj.name} className = "pokemon">{this.props.obj.name}</div>
-      );
+    console.log(this.props.obj.url);
+
+    fetch(this.props.obj.url)
+    .then(res => res.json())
+    .then(respuesta => {log});
+  }
+
+  render() {
+
+    return (
+      <div key={this.props.obj.name} className="pokemon">
+
+        <p>{this.props.obj.name}</p>
+      </div>
+    );
   }
 }
 
@@ -66,7 +79,7 @@ export default App;
 window.onload = init;
 
 function init() {
-  
+
   ReactDOM.render(<Pokedex />, document.getElementById("Pokedex"));
 
 }

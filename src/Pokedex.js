@@ -15,7 +15,7 @@ class Pokedex extends Component {
 
     async descargarDatos(){
 
-        let fetch1 = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10");
+        let fetch1 = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
         let jsonPokemones = await fetch1.json();
         this.setState({ listaPokemones: jsonPokemones.results, cargado : true});
 
@@ -33,7 +33,6 @@ class Pokedex extends Component {
             
             return(
                 <div id="rejilla">
-
                 {this.state.listaPokemones.map(
                     iteracion => {return <Pokemon obj={iteracion} /> } //le paso como parametro el objeto ya creado
                 )}</div>

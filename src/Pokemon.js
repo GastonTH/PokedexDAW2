@@ -10,6 +10,7 @@ class Pokemon extends Component {
             cargado: false,
             info: false,
             pokeInfo: [],
+            descripcion: "",
 
 
         }
@@ -19,26 +20,73 @@ class Pokemon extends Component {
 
     async descargarDatos() {
 
-        let nombre = await fetch(this.props.obj.url);
-        let jsonPokemon = await nombre.json();
-        this.setState({ pokeInfo: jsonPokemon, cargado: true });
+        let priFetch = await fetch(this.props.obj.url);
+        let jsonPokemon = await priFetch.json();
+        let secFetch = await fetch(jsonPokemon.species.url);
+        let pokeDesc = await secFetch.json();
+        //console.log(pokeDesc);
+
+        this.setState({ pokeInfo: jsonPokemon, cargado: true, descripcion: pokeDesc }); //le decimos que vuelva a refrescar
 
     }
 
     componentDidMount = async () => {
         await this.descargarDatos();
-        console.log("pokemon cargado");
+        //console.log("pokemon cargado");
 
     };
 
     crearInfo() {
         console.log("/****-- infoooooooooo --***/");
-        this.setState({info: true})
+        this.setState({ info: true })
+        console.log(this.state.descripcion);
+
     }
 
-    cerrar(){
+    cerrar() {
         console.log("cerrar");
-        this.setState({info: false})  
+        this.setState({ info: false })
+    }
+
+    crearTipos() {
+
+        if (this.state.pokeInfo.types[0].slot === 2) {
+
+            return (
+                <div className="tipos">
+                    <img src={"https://veekun.com/dex/media/types/en/" + this.state.pokeInfo.types[0].type.name + ".png"} />
+                    <img src={"https://veekun.com/dex/media/types/en/" + this.state.pokeInfo.types[1].type.name + ".png"} />
+
+                </div>
+            )
+
+
+        } else {
+
+            return (
+                <div className="tipos">
+                    <img src={"https://veekun.com/dex/media/types/en/" + this.state.pokeInfo.types[0].type.name + ".png"} />
+                </div>
+
+            )
+        }
+    }
+
+    pokeDescripcion() {
+
+        for (let i = 0; i < this.state.descripcion.flavor_text_entries.length; i++) {
+            
+
+            if (this.state.descripcion.flavor_text_entries[i].language.name === "es") {
+
+                return (
+                    <p>{this.state.descripcion.flavor_text_entries[i].flavor_text}</p>
+                );
+
+            }
+
+        }
+
     }
 
     render() {
@@ -46,9 +94,9 @@ class Pokemon extends Component {
         if (this.state.cargado) {
 
             if (!this.state.info) {
-                
+
                 return (
-                    <div onClick={this.crearInfo} className="pokemon">
+                    <div key={this.state.pokeInfo.name} onClick={this.crearInfo} className="pokemon">
                         <p>
                             {this.state.pokeInfo.id}<br />
                             {this.state.pokeInfo.name}<br />
@@ -59,10 +107,13 @@ class Pokemon extends Component {
 
             } else {
 
-                return(
+                return (
                     <div className="info">
                         <div onClick={this.cerrar} className="cerrar">cerrar</div>
                         <p>{this.state.pokeInfo.name}</p>
+                        <p>{this.state.descripcion.base_happiness}</p>
+                        {this.crearTipos()}
+                        {this.pokeDescripcion()}
                     </div>
                 );
 

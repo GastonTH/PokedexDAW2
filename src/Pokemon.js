@@ -75,7 +75,6 @@ class Pokemon extends Component {
     pokeDescripcion() {
 
         for (let i = 0; i < this.state.descripcion.flavor_text_entries.length; i++) {
-            
 
             if (this.state.descripcion.flavor_text_entries[i].language.name === "es") {
 

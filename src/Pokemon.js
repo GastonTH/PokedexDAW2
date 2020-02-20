@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import PokeInfo from './PokeInfo';
 
 class Pokemon extends Component {
 
@@ -36,8 +34,6 @@ class Pokemon extends Component {
     crearInfo() {
         console.log("/****-- infoooooooooo --***/");
         this.setState({info: true})
-        /*ReactDOM.render(<PokeInfo obj={this.state.pokeInfo} cerrado="false" />, document.querySelector('[data-pokemon=' + this.props.obj.name + "]"));
-        console.log(document.querySelector('[data-pokemon=' + this.props.obj.name + "]"));*/
     }
 
     cerrar(){
@@ -66,7 +62,7 @@ class Pokemon extends Component {
                 return(
                     <div className="info">
                         <div onClick={this.cerrar} className="cerrar">cerrar</div>
-                        <p>CARGANDO</p>
+                        <p>{this.state.pokeInfo.name}</p>
                     </div>
                 );
 

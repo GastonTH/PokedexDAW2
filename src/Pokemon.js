@@ -16,6 +16,7 @@ class Pokemon extends Component {
 
         }
         this.crearInfo = this.crearInfo.bind(this);
+        this.cerrar = this.cerrar.bind(this);
     }
 
     async descargarDatos() {
@@ -34,25 +35,42 @@ class Pokemon extends Component {
 
     crearInfo() {
         console.log("/****-- infoooooooooo --***/");
-       ReactDOM.render(<PokeInfo obj={this.state.pokeInfo} cerrado = "false" />, document.querySelector('[data-pokemon=' + this.props.obj.name+"]"));
-       console.log(document.querySelector('[data-pokemon=' + this.props.obj.name+"]"));
+        this.setState({info: true})
+        /*ReactDOM.render(<PokeInfo obj={this.state.pokeInfo} cerrado="false" />, document.querySelector('[data-pokemon=' + this.props.obj.name + "]"));
+        console.log(document.querySelector('[data-pokemon=' + this.props.obj.name + "]"));*/
+    }
+
+    cerrar(){
+        console.log("cerrar");
+        this.setState({info: false})  
     }
 
     render() {
 
         if (this.state.cargado) {
 
-            return (
-                <div onClick={this.crearInfo} className="pokemon">
-                    <p>
-                        {this.state.pokeInfo.id}<br />
-                        {this.state.pokeInfo.name}<br />
-                    </p>
-                    <img src={this.state.pokeInfo.sprites.front_default} />
-                    <div data-pokemon={this.props.obj.name} className="info"></div>
-                </div>
+            if (!this.state.info) {
+                
+                return (
+                    <div onClick={this.crearInfo} className="pokemon">
+                        <p>
+                            {this.state.pokeInfo.id}<br />
+                            {this.state.pokeInfo.name}<br />
+                        </p>
+                        <img src={this.state.pokeInfo.sprites.front_default} />
+                    </div>
                 );
 
+            } else {
+
+                return(
+                    <div className="info">
+                        <div onClick={this.cerrar} className="cerrar">cerrar</div>
+                        <p>CARGANDO</p>
+                    </div>
+                );
+
+            }
 
         } else {
 

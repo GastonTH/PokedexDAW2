@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Pokedex.css';
 
 class Pokemon extends Component {
 

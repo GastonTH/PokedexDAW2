@@ -1,0 +1,36 @@
+@font-face {
+    font-family: pokeClassic;
+    src: url(fonts/pokeClassic.ttf); 
+}
+#Pokedex{  
+    margin-top: 200px;
+    font-family: pokeClassic;
+    font-size: 10px;
+    
+    #rejilla{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+
+        .pokemon, .logoBola,{
+            width: 95%;
+            text-align: center;
+        }
+
+        //un poco de selectores por aqui
+        .info > img, .pokemon > img{
+            transition: all 0.5s;
+            width: 200px;
+        }
+        .info > img{
+            float: left;
+        }
+
+        .info > img:hover, .pokemon > img:hover {
+            //transform: rotate(360deg);
+            transform: translateY(-50px)
+        }
+
+        /*.pokeFoto:hover {transition:all .5s ease-in-out;}*/
+    } 
+}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Pokemon from './Pokemon';
+import './Pokedex.css';
 
-class Pokedex extends Component {
+export default  class Pokedex extends Component {
 
     constructor(props) { //props es el paso de parametros
         super(props);
@@ -34,7 +35,7 @@ class Pokedex extends Component {
             return(
                 <div id="rejilla">
                 {this.state.listaPokemones.map(
-                    iteracion => {return <Pokemon obj={iteracion} /> } //le paso como parametro el objeto ya creado
+                    iteracion => {return <Pokemon obj={iteracion} key={iteracion.name} /> } //key super importante ^-^ //le paso como parametro el objeto ya creado
                 )}</div>
             );
 
@@ -49,5 +50,3 @@ class Pokedex extends Component {
     }
 
 }
-
-export default Pokedex;

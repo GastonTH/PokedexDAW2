@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Pokedex.css';
+import pokebol from './pokebola.png';
+
 
 class Pokemon extends Component {
 
@@ -25,7 +27,9 @@ class Pokemon extends Component {
         let jsonPokemon = await priFetch.json();
         let secFetch = await fetch(jsonPokemon.species.url);
         let pokeDesc = await secFetch.json();
-        //console.log(pokeDesc);
+        //let terFetch = await fetch(pokeDesc.evolution_chain.url);
+        //let evoChain = await terFetch.json();
+        //console.log(evoChain);
 
         this.setState({ pokeInfo: jsonPokemon, cargado: true, descripcion: pokeDesc }); //le decimos que vuelva a refrescar
 
@@ -38,9 +42,9 @@ class Pokemon extends Component {
     };
 
     crearInfo() {
-        console.log("/****-- infoooooooooo --***/");
+        //console.log("/****-- infoooooooooo --***/");
         this.setState({ info: true })
-        console.log(this.state.descripcion);
+        //console.log(this.state.descripcion);
 
     }
 
@@ -55,8 +59,8 @@ class Pokemon extends Component {
 
             return (
                 <div className="tipos">
-                    <img src={"https://veekun.com/dex/media/types/en/" + this.state.pokeInfo.types[0].type.name + ".png"} />
-                    <img src={"https://veekun.com/dex/media/types/en/" + this.state.pokeInfo.types[1].type.name + ".png"} />
+                    <img alt={"tipo 1 " + this.state.pokeInfo.types[0].type.name} src={"https://veekun.com/dex/media/types/en/" + this.state.pokeInfo.types[0].type.name + ".png"} /> 
+                    <img alt={"tipo 2 " + this.state.pokeInfo.types[1].type.name} src={"https://veekun.com/dex/media/types/en/" + this.state.pokeInfo.types[1].type.name + ".png"} />
 
                 </div>
             )
@@ -66,7 +70,7 @@ class Pokemon extends Component {
 
             return (
                 <div className="tipos">
-                    <img src={"https://veekun.com/dex/media/types/en/" + this.state.pokeInfo.types[0].type.name + ".png"} />
+                    <img alt={"tipo " + this.state.pokeInfo.types[0].type.name} src={"https://veekun.com/dex/media/types/en/" + this.state.pokeInfo.types[0].type.name + ".png"} />
                 </div>
 
             )
@@ -89,6 +93,14 @@ class Pokemon extends Component {
 
     }
 
+    MaysPrimera(string){
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    funcionTranEnd(){
+        console.log("doneeee");
+    }
+
     render() {
 
         if (this.state.cargado) {
@@ -98,20 +110,20 @@ class Pokemon extends Component {
                 return (
                     <div key={this.state.pokeInfo.name} onClick={this.crearInfo} className="pokemon">
                         <p>
-                            {this.state.pokeInfo.id}<br />
-                            {this.state.pokeInfo.name}<br />
+                            {this.state.pokeInfo.id} {this.MaysPrimera(this.state.pokeInfo.name)}<br />
                         </p>
-                        <img src={this.state.pokeInfo.sprites.front_default} />
+                        <img alt={"Pokemon: " + this.state.pokeInfo.name} className="pokeFoto" src={this.state.pokeInfo.sprites.front_default} />
                     </div>
                 );
 
             } else {
 
                 return (
-                    <div className="info">
-                        <div onClick={this.cerrar} className="cerrar">cerrar</div>
-                        <p>{this.state.pokeInfo.name}</p>
-                        <p>{this.state.descripcion.base_happiness}</p>
+                    <div /*onTransitionEnd={this.funcionTranEnd()}*/ onClick={this.cerrar} className="info">
+                        <p>{this.state.pokeInfo.id} {this.MaysPrimera(this.state.pokeInfo.name)}</p>
+                        <img alt={"Pokemon: " + this.state.pokeInfo.name} src={this.state.pokeInfo.sprites.front_default} />
+                        <p>Peso: {this.state.pokeInfo.weight}</p>
+                        <p>Altura: {this.state.pokeInfo.height} cm</p>
                         {this.crearTipos()}
                         {this.pokeDescripcion()}
                     </div>
@@ -122,7 +134,7 @@ class Pokemon extends Component {
         } else {
 
             return (
-                <div><p>CARGANDO</p></div>
+                <div><img alt="logo cargando" className="logoBola" src={pokebol} /></div>
             )
         }
 

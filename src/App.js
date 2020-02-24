@@ -7,7 +7,7 @@ export default class App extends Component {
         return ( 
             <div className = "App" >
                 <div className = "App-header">
-                    <img src={texto} className="App-texto" />
+                    <img alt="logo de la pagina" src={texto} className="App-texto" />
                 </div>
             </div>
         );

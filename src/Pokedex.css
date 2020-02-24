@@ -19,6 +19,6 @@
     #Pokedex #rejilla .info > img {
       float: left; }
     #Pokedex #rejilla .info > img:hover, #Pokedex #rejilla .pokemon > img:hover {
-      transform: translateY(-50px); }
+      transform: scale(1.2); }
 
 /*# sourceMappingURL=Pokedex.css.map */

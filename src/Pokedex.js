@@ -16,7 +16,7 @@ export default  class Pokedex extends Component {
 
     async descargarDatos(){
 
-        let fetch1 = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
+        let fetch1 = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1000");
         let jsonPokemones = await fetch1.json();
         this.setState({ listaPokemones: jsonPokemones.results, cargado : true});
 
